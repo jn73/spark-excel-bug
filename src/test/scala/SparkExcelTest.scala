@@ -1,8 +1,8 @@
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
-import org.scalatest.FunSpec
+import org.scalatest.{FunSpec, Matchers}
 
-class SparkExcelTest extends FunSpec {
+class SparkExcelTest extends FunSpec with Matchers {
 
   val sess: SparkSession = SparkSession.builder().appName("test").master("local[3]")
     .config(new SparkConf())
@@ -16,7 +16,7 @@ class SparkExcelTest extends FunSpec {
 
       val rows = df.collect()
 
-      println("read rows: " + rows)
+      rows should have size(3)
 
     }
   }
